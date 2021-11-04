@@ -1,0 +1,8 @@
+# Application
+app_container: devopstest:2.0
+# Set IfNotPresent if you image is remote
+app_pull_policy: Never
+
+
+# Redis
+redis_container: redis:latest
