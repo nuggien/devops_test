@@ -39,7 +39,8 @@ func main() {
 	router.GET("/", srv.indexHandler)
 
 	logger.Info("server started on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	logger.Info("Redis url: " + os.Getenv("REDIS_ADDR"))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8080", router))
 }
 
 func (s *server) indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
