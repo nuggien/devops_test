@@ -24,10 +24,16 @@ __Go application__ {IP address}:8080
 3. Check targets  
 Go to __Prometheus -> targets__  
 ```State = UP``` - it is normal  
-For __Go application__  ```State = Down``` - also normal, if error ```strconv.ParseFloat: parsing "world:": invalid syntax``` 
+For __Go application__  ```State = Down``` - also normal, if error ```strconv.ParseFloat: parsing "world:": invalid syntax```  
+
+![Targets](img/prom_targets.jpg)
 
 4. Check __Prometheus pushgatway__
 Sent from console of PC  
 ~~~
 echo -e 'job_successful 100.0\njob_failed 0.0' | curl --data-binary @-  http://localhost:9091/metrics/job/go_app_job
 ~~~
+
+5. Grafana  
+
+![Targets](img/Grafana_dash.jpg)
