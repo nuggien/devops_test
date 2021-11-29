@@ -47,7 +47,16 @@ services:
       - 9091
     ports:
       - "9091:9091"
-
+#  cadvisor:
+#    image: gcr.io/cadvisor/cadvisor:v0.43.0
+#    volumes:
+#      - '/:/rootfs:ro'
+#      - '/var/run:/var/run:rw'
+#      - '/sys:/sys:ro'
+#      - '/var/lib/docker/:/var/lib/docker:ro'
+#    ports:
+#      - "8080:8080"
+      
 volumes:
   grafana_data:
 
