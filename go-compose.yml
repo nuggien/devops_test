@@ -1,0 +1,19 @@
+version: "3"
+services:
+  go_app:
+    build: 
+      dockerfile: go_app/Dockerfile
+      context: .
+    networks:
+      - monitornet
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
+    container_name: bookmark-go-app
+    environment:
+      - APP_PUSH_GATEWAY=http://prom-pushgateway:9091
+  
+networks:
+  monitornet:
+    driver: bridge
