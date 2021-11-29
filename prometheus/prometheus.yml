@@ -23,7 +23,7 @@ scrape_configs:
     scrape_interval: 10s
     static_configs:
       - targets:
-        - ${IP_HOST}:8080
+        - 172.26.232.6:8080
         labels:
           group: 'applications'
           
@@ -32,15 +32,15 @@ scrape_configs:
     scrape_interval: 10s
     static_configs:
       - targets: 
-        - ${IP_HOST}:9090
-        - ${IP_HOST}:9115
+        - 172.26.232.6:9090
+        - 172.26.232.6:9115
         
   - job_name: promgateway
     metrics_path: /metrics
     scrape_interval: 10s
     static_configs:
       - targets: 
-        - ${IP_HOST}:9091
+        - 172.26.232.6:9091
         
   - job_name: blackbox
     metrics_path: /probe
@@ -48,11 +48,11 @@ scrape_configs:
         module: [http_2xx]
     static_configs:
         - targets:
-            - ${IP_HOST}:8080
+            - 172.26.232.6:8080
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: ${IP_HOST}:9115  
+        replacement: 172.26.232.6:9115  
