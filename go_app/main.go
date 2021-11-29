@@ -40,6 +40,7 @@ func main() {
 
 	logger.Info("server started on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
+
 }
 
 func (s *server) indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
