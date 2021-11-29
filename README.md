@@ -37,3 +37,9 @@ echo -e 'job_successful 100.0\njob_failed 0.0' | curl --data-binary @-  http://l
 5. Grafana  
 
 ![Targets](img/Grafana_dash.jpg)
+
+
+### P.S. What next?
+
+We could proceed to add blackbox for the monitoring of the web (like Go application too)  
+Can add alertmanager and setup Jenkins for starting of jobs for a schedule
