@@ -1,0 +1,12 @@
+services:
+  redis_db:
+    image: redis:6.2.7
+  app:
+    build: ./
+    environment:
+      REDIS_ADDR: redis_db:6379
+    ports:
+      - 8080:8080
+    depends_on:
+      - 'redis_db'
+
