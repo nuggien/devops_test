@@ -10,6 +10,9 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"go.uber.org/zap"
 	"time"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+    "github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 type server struct {
@@ -18,6 +21,12 @@ type server struct {
 }
 
 func main() {
+    recordMetrics()
+	go func() {
+		http.Handle("/metrics", promhttp.Handler())
+		http.ListenAndServe(":2112", nil)
+	}()
+
 	logger, err := zap.NewProduction()
 	if err != nil {
 		log.Fatal("unable to initialize logger")
@@ -40,6 +49,7 @@ func main() {
 
 	logger.Info("server started on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
+
 }
 
 func (s *server) indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -55,4 +65,20 @@ func (s *server) indexHandler(w http.ResponseWriter, r *http.Request, _ httprout
 
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "hello world: updated_time=%s\n", v)
+}
+
+var (
+    opsProcessed = promauto.NewCounter(prometheus.CounterOpts{
+        Name: "myapp_processed_ops_total",
+        Help: "The total number of processed events",
+    })
+)
+
+func recordMetrics() {
+    go func() {
+        for {
+            opsProcessed.Inc()
+            time.Sleep(5 * time.Second)
+        }
+    }()
 }

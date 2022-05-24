@@ -1,0 +1,5 @@
+- job_name: go-app
+  scrape_interval: 10s
+  static_configs:
+    - targets:
+        - go-app.go-app.svc.cluster.local:2112

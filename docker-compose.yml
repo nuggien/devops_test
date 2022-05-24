@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  go-app:
+    container_name: go-app
+    # build can be separated if needed
+    build: .
+    image: go-app:latest
+    environment:
+      - REDIS_ADDR=redis:6379
+    ports:
+      - 8080:8080
+      - 2112:2112
+    restart: always
+
+  redis:
+    container_name: redis
+    image: redis:7-alpine
+    ports:
+      - 6379:6379
+    restart: always
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
